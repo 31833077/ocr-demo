@@ -304,8 +304,40 @@ namespace OcrDemo.Util
                 }
             }
             return threshValue;
-        } 
+        }
         #endregion
 
+
+        #region 对传入的图片二值化
+        /// <summary>
+        /// 对传入的图片二值化
+        /// </summary>
+        /// <param name="bitmap">传入的原图片</param>
+        /// <param name="ezFZ">二值阀值 越大效果越不明显</param>
+        /// <returns>处理过后的图片</returns>
+        public void EZH(double? ezFZ = 0.42)
+        {
+            Bitmap img = this.bmpobj;
+            CheckCodeRecognize checkCodeRecognize = new CheckCodeRecognize();
+            this.bmpobj = checkCodeRecognize.EZH(img, ezFZ);
+
+        }
+        #endregion
+
+        #region 去掉目标干扰线
+
+        /// <summary>
+        /// 去掉目标干扰线
+        /// </summary>
+        /// <param name="img">将要处理的图片</param>
+        /// <returns>去掉干干扰线处理过的图片</returns>  
+        public void DropDisturb()
+        {
+            Bitmap img = this.bmpobj;
+            CheckCodeRecognize checkCodeRecognize = new CheckCodeRecognize();
+            this.bmpobj = checkCodeRecognize.DropDisturb(img);          
+        }
+     
+        #endregion
     }
 }

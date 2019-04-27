@@ -84,7 +84,14 @@ namespace OcrDemo
             var val = unCodeBase.GetDgGrayValue();
 
             unCodeBase.GetPicValidByValue(val, 4); //得到有效空间
-            unCodeBase.ClearPicBorder(1);
+            unCodeBase.ClearPicBorder(1);//去边框
+            unCodeBase.EZH();//二值化
+            unCodeBase.DropDisturb();//去掉干扰线
+            pictureBox2.Image = unCodeBase.bmpobj;
+            var ocr = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
+            var page = ocr.Process(unCodeBase.bmpobj, PageSegMode.SingleLine);
+            label1.Text = page.GetText();
+
 
             //Bitmap[] pics = unCodeBase.GetSplitPics(4, 1);     //分割
             //StringBuilder sb = new StringBuilder();
@@ -94,14 +101,11 @@ namespace OcrDemo
             //    sb.Append(code).Append(",");
             //}
             //label1.Text = sb.ToString();
-            CheckCodeRecognize checkCodeRecognize = new CheckCodeRecognize();
-            var img2 =  checkCodeRecognize.EZH( unCodeBase.bmpobj);
-            pictureBox2.Image = checkCodeRecognize.DropDisturb(img2);
-            var ocr = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
-            var page = ocr.Process(img2, PageSegMode.SingleLine);
-            label1.Text = page.GetText();
+            //CheckCodeRecognize checkCodeRecognize = new CheckCodeRecognize();
+            //var img2 =  checkCodeRecognize.EZH( unCodeBase.bmpobj);
+            //pictureBox2.Image = checkCodeRecognize.DropDisturb(img2);
 
-            return;
+            //return;
             //---------------------------------
             //Bitmap[] bitmaps = unCodeBase.GetSplitPics(4, 1);     //分割
             //StringBuilder sb = new StringBuilder();
@@ -114,9 +118,9 @@ namespace OcrDemo
             //    pic.SizeMode = PictureBoxSizeMode.AutoSize;
             //    pic.BorderStyle = BorderStyle.Fixed3D;
             //    flowLayoutPanel1.Controls.Add(pic);
-            //    var ocr = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
-            //    var page = ocr.Process(bitmap, PageSegMode.SingleChar);
-            //    sbTxt.Append( page.GetText()).Append(",");
+            //    ocr = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
+            //    page = ocr.Process(bitmap, PageSegMode.SingleLine);
+            //    sbTxt.Append(page.GetText()).Append(",");
             //}
             //label1.Text = sbTxt.ToString();
             //  unCodeBase.bmpobj.Save("d:\\111.png");

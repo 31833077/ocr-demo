@@ -35,11 +35,14 @@ namespace OcrDemo.Util
         /// 对传入的图片二值化
         /// </summary>
         /// <param name="bitmap">传入的原图片</param>
+        /// <param name="ezFZ">二值阀值 越大效果越不明显</param>
         /// <returns>处理过后的图片</returns>
-        public Bitmap EZH(Bitmap bitmap)
+        public Bitmap EZH(Bitmap bitmap, double? ezFZ=0.42)
         {
             if (bitmap != null)
             {
+                if (!ezFZ.HasValue)
+                    ezFZ = this.ezFZ;
                 var img = new Bitmap(bitmap);
                 for (var x = 0; x < img.Width; x++)
                 {
