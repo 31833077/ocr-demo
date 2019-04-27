@@ -1,0 +1,1 @@
+﻿Install-Package asprise-ocr-api
